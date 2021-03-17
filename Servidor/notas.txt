@@ -1,0 +1,8 @@
+#verificar el si un puerto esta abierto
+nmap 127.0.0.1 -p 5432 | grep -i tcp
+
+#abrir puertos
+sudo iptables -A INPUT -p tcp -i eth0 --dport 3306 -j ACCEPT
+
+
+service postgresql status

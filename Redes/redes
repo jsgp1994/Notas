@@ -1,0 +1,19 @@
+/***********Verificar perdidas de paquetes***********/
+
+https://docs.bluehosting.cl/tutoriales/servidores/como-diagnosticar-problemas-de-red-usando-mtr.html
+
+//Reportes
+sudo mtr --report <IP>
+
+//forzar a mtr para que muestre direcciones IP numéricas en lugar de nombres de host
+sudo mtr -n <IP>
+
+
+//forzar a mtr para que muestre direcciones IP numéricas y nombre del host
+sudo mtr -b <IP>
+
+//El indicador -w habilita el modo de informe amplio para una salida más clara.
+mtr -rw -c 5 <ip> >mtr-report
+
+//Reporte amplio con las ip y nombre de los saltos y almacena la informacion en mtr-report
+mtr -rw -b <ip> > mtr-report

@@ -1,0 +1,73 @@
+/************************************PHP*************************/
+#Instalar el conector de php7.2 para mysql
+sudo apt install php7.2-mysql
+
+sudo nano /etc/php/7.2/apache2/php.ini
+date.timezone = America/Bogota
+
+/*****************Instalar y configurar el servidor MariaDB*****************/
+
+sudo apt update
+sudo apt install mariadb-server
+
+/**Ingresar a la consola de amria DB**/
+sudo mysql -u root -p
+
+create database zabbix character set utf8 collate utf8_bin;
+grant all privileges on zabbix.* to zabbix@'localhost' identified by '900284079';
+grant all privileges on zabbix.* to zabbix@'%' identified by '900284079';
+flush privileges;
+
+/***************************************zabbix***************************************/
+Instalación => https://www.howtoforge.com/how-to-install-zabbix-monitoring-tool-on-ubuntu-1804/
+
+
+wget https://repo.zabbix.com/zabbix/4.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.4-1+bionic_all.deb
+sudo chmod -R 777 zabbix-release_4.4-1+bionic_all.deb
+sudo dpkg -i zabbix-release_4.4-1+bionic_all.deb
+sudo apt update
+sudo apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent
+
+zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbix
+
+/*********Configuracion Server*********/
+/etc/zabbix/zabbix_server.conf
+
+#Descomentar los siguientes itmes
+DBHost = localhost
+DBPassword = 900284079
+
+systemctl start zabbix-server
+systemctl enable zabbix-server
+
+systemctl status zabbix-server
+
+/*********Configuracion Agente*********/
+sudo nano /etc/zabbix/zabbix_agentd.conf
+#configurar los siguientes items
+
+Server = 127.0.0.1
+ServerActive = 127.0.0.1
+Hostname = zabbix18
+
+systemctl start zabbix-agent
+systemctl enable zabbix-agent
+
+systemctl status zabbix-agent
+
+#Reiniciar el servidor
+systemctl restart apache2
+
+
+/********INGRESAR A LA PAGINA DEL ZABBIX********/
+http://localhost/zabbix/
+
+/****************Login ZABBIX***********************/
+USER => Admin
+PASSWORD => zabbix
+
+
+
+/*******************Documentacion*******************/
+
+https://www.zabbix.com/documentation/current/manual/concepts/java/from_sources

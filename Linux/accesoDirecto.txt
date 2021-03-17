@@ -1,0 +1,1 @@
+gnome-desktop-item-edit --create-new ~/Escritorio

@@ -1,0 +1,38 @@
+/********CREDENCIALES DE INGRESO A LA CARPETA COMPARTIDA POR INFRAESTRUCTURA DE ZFB LA RESPALDAR LAS COPIAS DE SEGURIDAD DEL SERVIDOR********/
+Dirección para conectarse al servidor => smb://192.168.20.41/supervisa/
+Usuario    => supervisa
+Contraseña => Zu43rVz42020.
+Dominio    => piciz
+
+/*******CREDENCIALES BASE DE DATOS CONTROL DE ACCESO******/
+MOTOR      => PostgreSQL
+Database   => zf_bogota
+IP         => 192.168.28.20
+USUARIO    => superaccess
+CONTRASEÑA => 900284079
+PUERTO     => 5432
+
+/*******CREDENCIALES BASE DE DATOS BASCULA******/
+MOTOR      => PostgreSQL
+Database   => zf_bogota
+IP         => 192.168.28.20
+USUARIO    => superaccess
+CONTRASEÑA => 900284079
+PUERTO     => 5432
+
+
+/*******CREDENCIALES BASE DE DATOS VISITANTES PRUEBA******/
+MOTOR      => Oracle
+Database   => ZFRANCA.sub10162153200.vcnzfb02.oraclevcn.com
+IP         => 10.0.0.53
+USUARIO    => SUPERVISA
+CONTRASEÑA => ZonaF2020*
+PUERTO     => 1521
+
+/*******CREDENCIALES BASE DE DATOS VISITANTES PRODUCCIÓN******/
+MOTOR      => Oracle
+Database   => ZFRANCA.sub10162153200.vcnzfb02.oraclevcn.com
+IP         => 10.0.0.87
+USUARIO    => SUPERVISA
+CONTRASEÑA => SUPERVISA
+PUERTO     => 1521

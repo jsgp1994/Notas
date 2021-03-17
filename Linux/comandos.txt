@@ -1,0 +1,31 @@
+//Determinar el peso de una carpeta
+du -bsh <nombre de la carpeta>
+
+//interfaces
+sudo nano /etc/network/interfaces
+
+//reiniciar interfaces
+sudo /etc/init.d/networking restart
+
+https://camber1redes.wordpress.com/configurar-dchp-desde-consola-en-linux/
+
+//saber donde estan isntalados los jdk de java
+update-alternatives --config jkava
+
+
+/*************INSTALACION ED SAMBA***********************/
+sudo apt -y install samba
+sudo apt-get -y install samba-client
+systemctl status smbd nmbd //Verifica el servicio
+
+Dirección para conectarse al servidor => smb://192.168.20.41/supervisa/
+Usuario    => supervisa
+Contraseña => Zu43rVz42020.
+Dominio    => piciz
+
+
+/************Escaneo de la red por mac********************/
+sudo arp-scan --localnet
+
+/**************************Verificar paquetes dañados**************************/
+sudo dpkg --audit | more

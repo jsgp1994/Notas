@@ -1,0 +1,97 @@
+/****************CONFIGURAR SSL*************************/
+sudo a2enmod ssl
+sudo mkdir /etc/apache2/ssl
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
+sudo chmod -R 777 /etc/apache2/ssl
+sudo nano /etc/apache2/sites-available/default-ssl.conf
+
+//Se busca en sites-available/default-ssl.conf las siguientes lineas y se comentan
+SSLCertificateFile     /etc/ssl/certs/ssl-cert-snakeoil.pem
+SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+//Se agrega
+SSLCertificateFile     /etc/apache2/ssl/apache.crt
+SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+
+NOTA: Se comentan las anteriores por seguridad
+
+sudo a2ensite default-ssl.conf
+sudo a2enmod headers
+sudo a2enmod ssl rewrite
+sudo service apache2 restart
+
+//en el public del laravel modificar el index.html agregandole esta etiqueta para que automaticamente migre todo de http a https
+<meta http-equiv=Content-Security-Policy content=upgrade-insecure-requests>
+
+
+/**************Aumentarle la memoria al apache y tiempo de respuesta*/
+cd /etc/php/7.2/apache2
+
+modificar el archivo php.ini
+max_execution_time = 120
+memory_limit = 3096M
+sudo service apache2 restart
+
+
+/*******************mod_status*******************/
+
+https://techexpert.tips/es/apache-es/apache-instalacion-de-mod_status/
+
+sudo nano /etc/apache2/mods-enabled/status.conf
+
+        <Location /server-status>
+                SetHandler server-status
+                Require local
+                Require ip 192.168.20.0/24
+        </Location>
+
+
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+
+        <Location /server-status>
+                SetHandler server-status
+                Require local
+                Require ip 192.168.20.0/24
+        </Location>
+
+
+sudo service apache2 restart
+
+sudo systemctl status apache2
+
+/**************AGREGAR PUERTO DE ESCUCHA**************/
+
+https://www.solvetic.com/tutoriales/article/5012-como-cambiar-puerto-http-apache-en-linux/
+
+nano /etc/apache2/ports.conf
+//Agregar
+Listen 591
+
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+//Se agrega o me modifica el host virtual
+<VirtualHost *:591>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        <Location /server-status>
+                SetHandler server-status
+                Require local
+                Require ip 192.168.1.0/24
+        </Location>
+</VirtualHost>
+
+//Reiniciar el apache
+sudo systemctl restart apache2
+//Verificar puertos de escucha
+sudo netstat -tlpn| grep apache
+sudo ss -tlpn| grep apache
+
+/****************MAXIMO PERMITIDO DE MB EN IMAGENES********************/
+//Ingresar a la siguiente ruta  y modificar las siguientes variables
+sudo nano /etc/php/7.2/apache2/php.ini
+post_max_size= 512M
+upload_max_filesize=10M
+sudo service apache2 restart

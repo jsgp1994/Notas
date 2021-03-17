@@ -1,0 +1,6 @@
+Aumentar el tamaño del disco
+// Primero se ingresa a la ruta raiz del virtual box y se ejecuta el siguiente comando dependiendo del SO
+Ejemplo de redimensión de un disco duro en mi máquina virtual GNU/Linux a 32GB:
+VBoxManage modifyhd /home/vm/slow/Windows10.vdi --resize 32768
+Ejemplo de redimensión de un disco duro en mi máquina virtual Windows a 32GB:
+VBoxManage modifyhd "C:\Documentas and ..." --resize 32768

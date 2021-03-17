@@ -1,0 +1,10 @@
+var c = document.getElementById('myCanvas')
+var ctx = c.getContext('2d')
+var img = new Image()
+img.src = 'data:image/png;base64,' + this.authorization.image
+console.log(img.width)
+img.width = 1280
+img.height = 765
+img.onload = function () {
+  ctx.drawImage(img, 0, 0)
+}

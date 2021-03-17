@@ -1,0 +1,7 @@
+//vps Jhon
+usuario=> root
+host => 109.235.65.90
+contraseña => 2VjVJ3a71vAv
+
+
+//zona franca bogota

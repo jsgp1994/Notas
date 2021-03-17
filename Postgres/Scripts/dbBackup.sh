@@ -1,0 +1,1 @@
+sudo -u postgres pg_dump zf_bogota > /home/superaccess/Database/20-03-13/20-03-13_1584132268-zf_bogota.backup 2>&1

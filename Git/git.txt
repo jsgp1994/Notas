@@ -1,0 +1,3 @@
+//Cuando se decarga la informacion de un disco a otro git detecta que hubo un cambio de propietario en los archivos, por tanto se ignoran esos cambios
+//con el siguiente comando
+git config core.filemode false

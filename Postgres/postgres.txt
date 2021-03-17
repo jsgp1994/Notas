@@ -1,0 +1,9 @@
+
+//Consultar todas las zonas horarias;
+SELECT * FROM pg_timezone_names;
+
+//Cambia la Zona horaria de la base de datos;
+alter database zf_bogota set timezone to 'America/Bogota';
+
+//Reiniciar servicio de postgres
+sudo service postgresql restart
