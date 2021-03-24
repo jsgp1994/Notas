@@ -7,3 +7,14 @@ alter database zf_bogota set timezone to 'America/Bogota';
 
 //Reiniciar servicio de postgres
 sudo service postgresql restart
+
+//verificar caracteristicas del postgres
+https://pgtune.leopard.in.ua/#/
+
+//Ruta de configuracion
+/etc/postgresql/10/main/postgresql.conf
+
+//consulta base
+select *
+from audits a where reference = 49
+and  parameters->'data'->> 'value' = '42811';

@@ -1,0 +1,3 @@
+//Exportar base de datos
+mysqldump -u username -p database_name > data-dump.sql
+
