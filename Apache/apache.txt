@@ -29,7 +29,7 @@ cd /etc/php/7.2/apache2
 
 modificar el archivo php.ini
 max_execution_time = 120
-memory_limit = 3096M
+memory_limit = 8000M
 sudo service apache2 restart
 
 
@@ -95,3 +95,19 @@ sudo nano /etc/php/7.2/apache2/php.ini
 post_max_size= 512M
 upload_max_filesize=10M
 sudo service apache2 restart
+
+/*******************AUMENTAR CONEXIONES EN PARALELO*******************/
+https://www.amadourias.com/como-aumentar-las-conexiones-simultaneas-en-apache/
+sudo nano /etc/apache2/mods-available/mpm_prefork.conf
+
+Calculo
+//Tamaño de ram que consume en promedio las peticiones apache
+ps -ylC apache2 --sort:rss | awk '{SUM += $8; I += 1} END {print SUM/I/1024}'
+
+//ram que consume otros procesos
+ps -N -ylC apache2 --sort:rss | awk '{SUM += $8} END {print SUM/1024}'
+
+//Calculo de conexiones
+(RAMTOTAL – RAM_RESTOPROCESOS) / RAM_POR_CONEXIÓN
+
+sudo a2enmod mpm_prefork
