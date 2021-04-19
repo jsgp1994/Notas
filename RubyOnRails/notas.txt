@@ -1,0 +1,40 @@
+/*************Crear un campo en la base de datos**************/
+rails generate migration <Nombre de la migracion> count_access:integer
+
+#Ejemplo:
+rails generate migration AddNewCountAccessToAuthorizations count_access:integer
+
+/***********Crear tareas automaticas*************/
+rails generate task <namespace> <nombre_de_la_tarea>
+
+#Ejemplo
+rails generate task superaccess reset_access
+
+#se crea el archivo .rb en la carpeta lib/taks
+
+#Correr tarea
+bin/rake <namespace:<nombre_de_la_tarea>
+
+
+/*******************Creacion de jobs*********************/
+rails generate job <nombre_del_job>
+
+#ejemplo
+rails generate job resetAccess
+
+#El modelo de trabajo se encuentra en app/job
+
+#Correr el job 
+ResetAccessJob.perform_now
+
+
+#Nota crear un sh para colocar la siguiente instruccion
+job_var=$(echo "ApplicationController
+CountAuthorizationsBillingJob.perform_now" | sudo runuser -l superaccess -c "cd /home/superaccess/portal-web-2.0/Superaccess2.0/ && rails c")
+
+/******************MIGRACIONES SUPERACCESS 2.0******************************/
+#Crear conteo de accesos en la autorizacion
+bin/rails generate active_record:migration addCountAccessToAuthorization count_access:integer
+
+#Correr migracion en especifico 
+rake db:migrate:up VERSION=20210414152329 RAILS_ENV=yara

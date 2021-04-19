@@ -1,0 +1,40 @@
+
+#Se debe tener un servidor apache-php y mysql, descargar el siguiente repositorio en /var/www/html/
+sudo git clone https://github.com/webpwnized/mutillidae.git
+
+#Configuracion
+
+mysql -u root
+use mysql;
+update user set authentication_string=PASSWORD('mutillidae') where user='root';
+update user set plugin='mysql_native_password' where user='root';
+flush privileges;
+quit;
+sudo service apache2 restart
+sudo service mysql restart
+
+#Abrir en el navegador de mozilla 
+<ip>/mutillidae
+
+//Luego buscar un enlace que dice reset DB y dar click
+
+
+#Packer (Para la creación de imágenes)
+https://www.packer.io/downloads.html
+
+para instalar packer seguir el siguiente tutorial https://www.youtube.com/watch?v=I6yd5gD-7Oc
+
+
+#Vagrant (Para la creación y configuración de entornos de desarrollo)
+https://www.vagrantup.com/downloads.html
+
+#Cliente Git para Windows. (Software de control de versiones, para descargar del repositorio oficial)
+https://git-scm.com/downloads
+
+#Buscar eventos publicos de un usuario
+https://osintframework.com/
+
+#Para conocer informacion de una pagina
+nikto -h <url de la pagina> -o <nombre del documento>.html
+
+#Buscar informacion de como esta estructurado un sitio

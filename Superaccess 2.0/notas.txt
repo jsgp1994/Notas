@@ -1,0 +1,30 @@
+//Movimientos automaticos
+create database testing_superaccess2;
+
+
+create sequence audits_id_seq
+  start with 1
+  increment by 1
+  maxvalue 9223372036854775807
+  minvalue 1
+  cycle;
+
+CREATE TABLE public.audits
+(
+  id bigint NOT NULL DEFAULT nextval('audits_id_seq'::regclass),
+  reference bigint,
+  ip_origen character varying(191),
+  url character varying(191),
+  parameters jsonb,
+  date_request timestamp(0) without time zone,
+  response jsonb,
+  date_response timestamp(0) without time zone,
+  access_time integer,
+  observation text,
+  created_at timestamp(0) without time zone,
+  updated_at timestamp(0) without time zone,
+  CONSTRAINT audits_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);

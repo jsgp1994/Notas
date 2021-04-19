@@ -1,0 +1,2 @@
+#Seleccionar base de datos
+use <base de datos>
