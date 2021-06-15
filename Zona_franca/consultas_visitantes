@@ -1,0 +1,32 @@
+
+
+//Consultar autorizaciones pendientes por descargar
+SELECT   x.DSNOMBRE, x.cdidentificacion, x.CDTIPO_DOCUMENTO, x.fecha, x.id, nvl((SELECT MAX(ficha) FROM zfweb.tzfw_ingreso_visit i 
+WHERE i.idregistrovisit = x.idregistrovisit and fesalida is null), 0) ficha,
+    x.HORAINI, x.HORAFIN, x.idregistrovisit, x.cdestado, x.CDTIPO, X.IDVISITANTE, x.SNBLOQUEO, X.CDPLACA, X.DSFUNCIONARIO, x.FECHAINI, x.FECHAFIN 
+FROM 
+    (SELECT distinct a.DSNOMBRE, a.CDTIPO_DOCUMENTO, a.cdidentificacion, c.fecha,
+                        c.id, r.HORAINI, r.HORAFIN, c.idregistrovisit, c.idvisitante, 
+                        c.cdestado, r.CDTIPO, r.FEREGISTRO, r.SNBLOQUEO, r.CDPLACA, r.DSFUNCIONARIO, r.FECHAINI, r.FECHAFIN 
+    FROM zfweb.tzfw_fechas_visit c, zfweb.tzfw_visitantes a, zfweb.tzfw_registro_visit r 
+    WHERE c.fecha between trunc(sysdate) AND trunc(sysdate) AND a.id = c.idvisitante 
+    AND r.idvisitante = a.id AND (NVL(CDESTADO,1)) < 2
+    ) x 
+WHERE trunc(x.fecha) between trunc(sysdate) AND trunc(sysdate) and x.FEREGISTRO = (select max(FEREGISTRO) from ZFWEB.TZFW_REGISTRO_VISIT where IDVISITANTE = x.IDVISITANTE) order by x.id desc;
+
+
+//consultar registros de un visitante
+SELECT   x.DSNOMBRE, x.cdidentificacion, x.CDTIPO_DOCUMENTO, x.fecha, x.id, nvl((SELECT MAX(ficha) FROM zfweb.tzfw_ingreso_visit i  
+WHERE i.idregistrovisit = x.idregistrovisit and fesalida is null), 0) ficha, 
+    x.HORAINI, x.HORAFIN, x.idregistrovisit, x.cdestado, x.CDTIPO, X.IDVISITANTE, x.SNBLOQUEO, X.CDPLACA, X.DSFUNCIONARIO, x.FECHAINI, x.FECHAFIN  
+FROM  
+    (SELECT distinct a.DSNOMBRE, a.CDTIPO_DOCUMENTO, a.cdidentificacion, c.fecha, 
+                        c.id, r.HORAINI, r.HORAFIN, c.idregistrovisit, c.idvisitante,  
+                        c.cdestado, r.CDTIPO, r.FEREGISTRO, r.SNBLOQUEO, r.CDPLACA, r.DSFUNCIONARIO, r.FECHAINI, r.FECHAFIN  
+    FROM zfweb.tzfw_fechas_visit c, zfweb.tzfw_visitantes a, zfweb.tzfw_registro_visit r  
+    WHERE c.fecha between trunc(sysdate) AND trunc(sysdate) AND a.id = c.idvisitante  
+    AND r.idvisitante = a.id 
+    ) x  
+WHERE x.cdidentificacion = '88230396' and trunc(x.fecha) between trunc(sysdate) AND trunc(sysdate) and x.FEREGISTRO = (select max(FEREGISTRO) from ZFWEB.TZFW_REGISTRO_VISIT where IDVISITANTE = x.IDVISITANTE) order by x.id desc;
+
+

@@ -18,3 +18,7 @@ https://pgtune.leopard.in.ua/#/
 select *
 from audits a where reference = 49
 and  parameters->'data'->> 'value' = '42811';
+
+
+//Verificar conexiones en postgres
+https://www.aradaen.com/sysadmin/tips-y-trucos/cerrando-conexiones-en-postgresql/

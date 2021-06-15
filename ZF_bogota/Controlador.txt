@@ -1,0 +1,123 @@
+	/************************************************************************************************************************/
+	/*************************************ENVIO DE PESO A PICIZ Y LIMPIEZA DE VARIABLES**************************************/
+	/************************************************************************************************************************/
+	public function envioPiciz(){
+		$input = Input::all();
+		$mensaje = '';
+		$codigo = 'E';
+		$placa = 'na';
+		$referencia = 'na';
+		$respuesta = 'na';
+		#Se verifica si se enviaron parametros
+		if(!empty($input)){
+			#Se verifica si se enviaron los parametros necesarios para realizar el procedimiento
+			if(isset($input['placa']) && isset($input['peso']) && isset($input['referencia']) && isset($input['bandera'])){
+				$servidor = ServidorLocal::where('estado','=','1')->first();
+				#Se verifica la configuración de la visibilidad del servidor en el
+				if(isset($servidor) && $servidor->direccion_ip != '' ){
+					$direccionServidor = $servidor->direccion_ip;
+					$puertoServidor = $servidor->puerto_servidor;
+
+					#Se envia la información al servidor local
+					$url2 = 'http://'.$direccionServidor.':'.$puertoServidor.'/Backend/zfbog-sw-portal-local/ApiSoporte/public/api/auth/pesoEntrada';
+					$data2 = array(
+						'placa' => $input['placa'],
+						'peso' => $input['peso'],
+						'referencia' => $input['referencia'],
+						'bandera' =>  $input['bandera']
+					);
+
+					$content2 = 'Content-Type:application/json';
+					$conexion_2 = self::enviaData($url2,$data2,$content2);
+					$obj_2 = json_decode($conexion_2);
+
+					if($conexion_2){
+						switch($input['bandera']){
+							#Pesaje en bascula
+							case 0:
+								if($obj_2->{'codigo'} != 404 ){
+									$codigo = self::homologarCodigo($obj_2->{'codigo'});
+									$placa = $obj_2->{'placa'};
+									$referencia = $obj_2->{'referencia'};
+								}
+								break;
+							#Limpieza de interfaz
+							case 1:
+								$codigo = 100; //Limpieza ok
+								$respuesta = 'INGRESADO';
+								break;
+						}
+					}
+				}
+			}
+		}
+
+		$data = array(
+			'codigo' => $codigo,
+			'placa' => $placa,
+			'referencia' => $referencia,
+			'respuesta' => $respuesta
+		);
+		return json_encode($data);
+	}
+
+
+
+
+
+
+	/************************************************************************************************************************/
+	/*************************************PERMITE GESTIONAR UN PUNTO DE CONTROL TIPO SORTEO**********************************/
+	/************************************************************************************************************************/
+	public function avanzadaSorteo(){
+		$input = Input::all();
+		$codigo = 'E';
+		$placa = 'na';
+		$referencia = 'na';
+		$bascula_disponible = 'na';
+		#No se optubieron los parametros en el Body
+		if(!empty($input)){
+			#Se enviaron los parametros completos
+			if(isset($input['codigo']) && isset($input['placa']) && isset($input['referencia'])){
+				$servidor = ServidorLocal::where('estado','=','1')->first();
+				#La configuración del servidor local se encuentra disponible
+				if(isset($servidor) && $servidor->direccion_ip != '' ){
+					$direccionServidor = $servidor->direccion_ip;
+					$puertoServidor = $servidor->puerto_servidor;
+					$conexion = '';
+					#################################Se consulta las basculas disponibles en el servidor local#################################
+					$url = 'http://'.$direccionServidor.':'.$puertoServidor.'/Backend/zfbog-sw-portal-local/ApiSoporte/public/api/auth/sorteo';
+					$data = array(
+						'codigo' => $input['codigo'],
+						'placa' => $input['placa'],
+						'referencia' => $input['referencia']
+
+					);
+					$content = 'Content-Type:application/json';
+					$conexion = self::enviaData($url,$data,$content);
+					$obj = json_decode($conexion);
+					######################Se envio respuesta del servidor local######################
+					if($conexion){
+						if(isset($obj->{'Error'})){
+							$bascula_disponible = $obj->{'Error'};
+						}else{
+							$codigo = self::homologarCodigo($obj->{'codigo'});
+							$placa = $input['placa'];
+							$referencia = $input['referencia'];
+							$bascula_disponible = $obj->{'respuesta'};
+						}
+					}
+				}
+			}
+		}
+
+		$respuesta = array(
+			'codigo' => $codigo,
+			'placa' => $placa,
+			'referencia' => $referencia,
+			'bascula_disponible' => $bascula_disponible
+		);
+
+		return json_encode($respuesta);
+
+	}

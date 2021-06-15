@@ -37,4 +37,129 @@ CountAuthorizationsBillingJob.perform_now" | sudo runuser -l superaccess -c "cd 
 bin/rails generate active_record:migration addCountAccessToAuthorization count_access:integer
 
 #Correr migracion en especifico 
-rake db:migrate:up VERSION=20210414152329 RAILS_ENV=yara
+rake db:migrate:up VERSION=20210421125345 RAILS_ENV=demo
+
+/**************Movimientos automaticos*********/
+create database testing_superaccess2;
+
+
+create sequence audits_id_seq
+  start with 1
+  increment by 1
+  maxvalue 9223372036854775807
+  minvalue 1
+  cycle;
+
+CREATE TABLE public.audits
+(
+  id bigint NOT NULL DEFAULT nextval('audits_id_seq'::regclass),
+  reference bigint,
+  ip_origen character varying(191),
+  url character varying(191),
+  parameters jsonb,
+  date_request timestamp(0) without time zone,
+  response jsonb,
+  date_response timestamp(0) without time zone,
+  access_time integer,
+  observation text,
+  created_at timestamp(0) without time zone,
+  updated_at timestamp(0) without time zone,
+  CONSTRAINT audits_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+/********************************ACTUALIZACION DE GEMAS********************************/
+bundle update --conservative mimemagic
+
+
+/******************FORZAR LA SINCRONIZACION******************/
+rails c
+ApplicationController
+SyncHelper.force_sync
+
+
+/**************MONGO RAILS************/
+Config.where(name: {'$in': ["property_timezone","property_free_pass"]}).pluck(:name)
+
+
+
+/************************RECUPERAR NOMBRES DE LA PROPIEDAD**************************/
+
+#NOTA Crear migracion en el resetDB.sh y migracion
+configs = Config.all
+
+configs.each do |config|  
+  respConfig = PropConfig.using("demo").where(config_id: config.id.to_s)
+  respConfig.update(name: config.name.to_s)  
+end
+
+
+
+/***********************QUERYS RUBY********************/
+
+ActiveRecord::Base.using("demo").connection.execute("SELECT * FROM public.prop_configs")
+
+
+/********************LA AUTENTICACION NO FUNCIONA*************************/
+cd ~/portal-local-2.0/Superaccess2.0/
+bundle update --conservative mimemagic
+bundle install
+bundle install --binstubs
+bundle config --delete bin
+echo 'a' | rails app:update:bin
+bundle binstubs bundler --force
+npm install
+npm install --save-dev clean-webpack-plugin
+npm install --save idle-vue
+npm install --save sweetalert@2.1.2
+npm install --save vue-web-cam
+
+# Configuración adicional
+touch ~/portal-local-2.0/Superaccess2.0/app/javascript/src/services/config.js
+~/portal-local-2.0/Superaccess2.0/bin/webpack
+# Configuración adicional para crono
+mkdir /home/superaccess/portal-local-2.0/Superaccess2.0/tmp/pids/
+cron_exists=$(echo $(crontab -l) | egrep --count 'crono.sh')
+if [ $cron_exists == 0 ]; then crontab -l | { cat; echo "*/5 * * * * /home/superaccess/portal-local-2.0/Superaccess2.0/crono.sh >> /home/superaccess/crono.log"; } | crontab -; fi
+sudo service nginx restart
+
+# Agrega tarea en cron para servidor de AnyCable
+cable_exists=$(crontab -l | egrep --count 'run_anycable.sh')
+if [ $cable_exists == 0 ]; then crontab -l | { cat; echo "@reboot /home/superaccess/portal-local-2.0/Superaccess2.0/run_anycable.sh >> /home/superaccess/anycable.log"; } | crontab -; fi
+
+
+npm install --save v-tooltip
+npm install --save vue-web-cam
+npm install --save sweetalert@2.1.2
+npm install --save vue-web-cam
+npm install --save idle-vue
+
+
+
+/****************CORRERO LA SINCRONIZACION FORZADA****************/
+cronos/SyncJob.sh
+
+
+
+
+/***********Verificar la linea del error******************/
+
+rescue Exception => e
+  e.backtrace.to_s
+end  
+
+
+
+
+/****************************TRADUCCION**************************/
+# pasos para solo actualizar traducciones en producción 
+# 1. Eliminar colección phrases de mogo 
+# 2. Ejecutar las siguientes lineas una por una 
+RAILS_ENV=development rails db:seed:languages:phrases_1
+RAILS_ENV=development rails db:seed:languages:phrases_2
+RAILS_ENV=development rails db:seed:languages:phrases_3
+RAILS_ENV=development rails db:seed:languages:phrases_4
+redis-cli FLUSHALL

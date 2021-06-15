@@ -1,3 +1,14 @@
 //Exportar base de datos
 mysqldump -u username -p database_name > data-dump.sql
 
+
+
+
+#Acceso remoto
+nano /etc/mysql/my.cnf
+
+#Cambie la línea siguiente: bind-address = 127.0.0.1, a: bind-address = 0.0.0.0
+
+/etc/init.d/mysql restart
+
+GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '900284079';

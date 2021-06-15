@@ -1,0 +1,33 @@
+
+
+#Referencia
+http://somebooks.es/establecer-una-direccion-ip-estatica-en-ubuntu-server-20-04/
+
+
+#Colocar la IP fija
+nano /etc/netplan/50-cloud-init.yaml	
+
+network:
+  ethernets:
+
+    enp0s3:      
+
+      dhcp4: no
+      addresses: [192.168.1.10/24]
+      gateway4: 192.168.1.1
+      nameservers:                  
+         addresses: [208.67.222.222]
+  version: 2
+
+
+netplan apply
+
+Seber DNS
+cat /etc/resolv.conf => 127.0.0.53
+
+Gateway o Puerta de Enlace
+ip route show
+
+https://mrhowtos.com/es/como-configurar-direccion-ip-fija-linux-ubuntu/#:~:text=Para%20configurar%20una%20direcci%C3%B3n%20IP,pulsar%20el%20bot%C3%B3n%20de%20A%C3%B1adir.
+
+

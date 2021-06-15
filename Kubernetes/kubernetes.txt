@@ -1,0 +1,7 @@
+/****************************PROYECTO BASE PLATZI****************************/
+https://github.com/platzi/curso-kubernetes
+
+
+/*********************COMANDOS DOCKER*********************/
+#Levantar servicos de docker
+sudo docker-compose up
