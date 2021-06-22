@@ -1,0 +1,30 @@
+
+/*******************CALCULAR LAS MARCACIONES CORRECTAS POR LA APP MOVIL*******************/
+select p.identification ,pm.name,cp."name" as cp,pm.created_at,
+case
+	when pm.way = 0 then 'Entrada'
+	when pm.way = 1 then 'Salida'
+end	
+from personal_movements pm 
+inner join authorizations a on a.id = pm.authorization_id 
+inner join people p on p.id = a.person_id 
+inner join control_points cp on cp.id = pm.control_point_id 
+where date(pm.created_at) >= '2021-06-14' and pm.personal_movement_type_id = 1
+and pm.credential_id = 6
+order by pm.authorization_id, pm.created_at asc;
+
+
+
+/*******************CALCULAR NEGACIONES POR LA APP MOVIL*******************/
+select p.identification ,pm.name,cp."name" as cp,pm.created_at,
+case
+	when pm.way = 0 then 'Entrada'
+	when pm.way = 1 then 'Salida'
+end	
+from personal_movements pm 
+inner join authorizations a on a.id = pm.authorization_id 
+inner join people p on p.id = a.person_id 
+inner join control_points cp on cp.id = pm.control_point_id 
+where date(pm.created_at) >= '2021-06-14' and pm.personal_movement_type_id <> 1
+and pm.credential_id = 6
+order by pm.authorization_id, pm.created_at asc;

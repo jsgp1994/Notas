@@ -1,0 +1,15 @@
+OK	Xoops_data/data/secure.php
+OK	Daoconnection.php
+OK	includes/daoconnection.php
+OK	Modules/scav/daoconnection.php
+OK	Modules/scav/recepción/daoconnection.php
+OK	Modules/scav/recepción/daoconnectionAPI.php
+OK	Modules/scav/dashboard/daoconnection.php
+OK	Modules/scav/dashboard/daoconnection2.php
+OK	modules/scav/DashboardParqueaderos/daoConnection.php
+OK	modules/scav/Trazabilidad/daoConnection.php
+OK	Modules/scav/aplicacionesFun/8BF.inc
+OK	Modules/scav/aplicacionesFun/7AF.inc
+OK	Modules/scav/aplicacionesFun/daoconnectionAPI.php
+•	modules/scav/aplicacionesSup/daoConnection.php
+•	modules/scav/aplicacionesSup/32A/daoConnection.php

@@ -29,3 +29,16 @@ sudo arp-scan --localnet
 
 /**************************Verificar paquetes dañados**************************/
 sudo dpkg --audit | more
+
+/**************************Empaquetar tar.gz**************************/
+sudo tar -czvf <nombre a empaquetar> <carpeta a empaquetar>
+/**************************descomprimir tar.gz**************************/
+sudo tar -xzvf alistamiento.tar.gz
+
+
+
+/******************Verificar que tipo de disco duro se esta usando******************/
+cat /sys/block/sda/queue/rotational
+
+– Si es «1» estaríamos hablando de un disco HDD
+– Si el valor devuelve «0» sería un disco SSD 
