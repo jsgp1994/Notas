@@ -1,0 +1,35 @@
+#El instalador de Laravel
+composer create-project laravel/laravel <nombre del proyecto>
+
+
+#########Laravel Sanctum para autenticacion SPA###########################
+url Base => https://laravel.com/docs/8.x/sanctum
+
+composer require laravel/sanctum
+
+- Publicar los archivos de configuracion
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+
+php artisan migrate
+
+
+#debe agregar el middleware de Sanctum a su apigrupo de middleware dentro del app/Http/Kernel.phparchivo de su aplicación :
+
+'api' => [
+    \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+    'throttle:api',
+    \Illuminate\Routing\Middleware\SubstituteBindings::class,
+],
+
+
+#Agregar informacion al modelo user
+
+use Laravel\Sanctum\HasApiTokens;
+
+class User extends Authenticatable
+{
+    use HasApiTokens, HasFactory, Notifiable;
+}
+
+#Se crea controlador
+php artisan make:controller AuthController

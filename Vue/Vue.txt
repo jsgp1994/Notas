@@ -1,0 +1,21 @@
+#instalar node 14
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+sudo apt -y install nodejs
+
+#Instalar Vue de fomra global
+sudo npm install -g @vue/cli
+sudo npm i -g @vue/cli-init 
+
+#Crear Proyecto
+vue init webpack <nombre del proyecto> //vue2.5
+vue create <Nombre del proyecto> vue3
+
+#Instalar element io
+https://element.eleme.io/#/es/component/installation
+
+sudo npm i element-ui -S
+
+#Plantilla
+https://www.creative-tim.com/product/vue-notus#
+
+

@@ -22,3 +22,8 @@ and  parameters->'data'->> 'value' = '42811';
 
 //Verificar conexiones en postgres
 https://www.aradaen.com/sysadmin/tips-y-trucos/cerrando-conexiones-en-postgresql/
+
+//CREAR USUARIO
+CREATE ROLE superaccess WITH LOGIN PASSWORD '900284079' CREATEDB CREATEROLE
+CREATE DATABASE superaccess
+GRANT ALL PRIVILEGES ON DATABASE superaccess to superaccess;
