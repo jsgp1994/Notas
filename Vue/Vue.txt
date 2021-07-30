@@ -19,3 +19,19 @@ sudo npm i element-ui -S
 https://www.creative-tim.com/product/vue-notus#
 
 
+#######################Añadir complemento de google Maps##################################
+
+
+clave de la api => AIzaSyC84Wx0FH4NnhWU1RYWqEyGE76UVHWUX7g se consigue en la URL https://console.cloud.google.com/apis/
+
+https://www.npmjs.com/package/vue2-google-maps
+
+Agregar libreria
+npm install vue2-google-maps
+
+npm install --save google-maps
+
+
+
+######################correr proyecto en desarrollo sin restriccion de ip################
+en la carpeta config, archivo index.js cambiar el host por 0.0.0.0

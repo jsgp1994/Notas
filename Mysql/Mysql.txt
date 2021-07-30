@@ -2,8 +2,6 @@
 mysqldump -u username -p database_name > data-dump.sql
 
 
-
-
 #Acceso remoto
 nano /etc/mysql/my.cnf
 
@@ -12,3 +10,19 @@ nano /etc/mysql/my.cnf
 /etc/init.d/mysql restart
 
 GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '900284079';
+
+/******************************CREAR BASE DE DATOS Y USUARIO UNICO******************************/
+create database <Nombre de la base de datos>
+CREATE USER <usuario>@'%' identified by <contraseña>;
+GRANT ALL PRIVILEGES ON <base de datos>.* TO <usuario>@'%';
+FLUSH PRIVILEGES;
+
+create database user_1
+CREATE USER 'usr_1'@'%' identified by 'usr#1';
+GRANT ALL PRIVILEGES ON user_1.* TO usr_1@'%';
+FLUSH PRIVILEGES;
+
+
+
+/**********************EXPORTAR BASES DE DATOS CON RUTINA********************************************/
+mysqldump -uroot --opt --routines solidos_limpieza > /home/ginger/public_html/bk/SOLIDOSV2.sql
