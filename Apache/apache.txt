@@ -118,3 +118,5 @@ https://microbuffer.wordpress.com/2015/04/22/habilitar-el-uso-de-htaccess-en-apa
 agregar esta regla al .httacces para cuando no encuentre una ruta tome el de vue
 
 RewriteRule ^index\.html$ - [L]
+
+----
