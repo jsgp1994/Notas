@@ -163,3 +163,27 @@ RAILS_ENV=development rails db:seed:languages:phrases_2
 RAILS_ENV=development rails db:seed:languages:phrases_3
 RAILS_ENV=development rails db:seed:languages:phrases_4
 redis-cli FLUSHALL
+
+
+/****************INSTLAR RUBY ON RAILS***********/
+https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-18-04-es
+
+/****************ISNTALAR RUBY*************************/
+rbenv install 3.0.0
+
+
+
+/**************Crear proyecto tipo API***********/
+rails new apiLPR --api -T
+
+##########INICIAR EL PROYECTO##########
+- Ejecutar el proyecto y que tenga acceso desde otro pc
+
+rails server -b 0.0.0.0
+
+##########CREAR CONTROLADOR##########
+
+bin/rails generate controller home
+
+
+

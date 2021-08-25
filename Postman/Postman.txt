@@ -1,0 +1,1 @@
+#Como realizar una rutina en postman con variables globales

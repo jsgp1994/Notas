@@ -42,3 +42,22 @@ cat /sys/block/sda/queue/rotational
 
 – Si es «1» estaríamos hablando de un disco HDD
 – Si el valor devuelve «0» sería un disco SSD 
+
+/******************Restaurar de fabrica Ubuntu******************/
+https://www.it-swarm-es.com/es/reset/restablecer-ubuntu-la-configuracion-de-fabrica/961338671/
+
+wget https://github.com/gaining/Resetter/releases/download/v3.0.0-stable/resetter_3.0.0-stable_all.deb
+wget https://github.com/gaining/Resetter/releases/download/v3.0.0-stable/add-apt-key_1.0-0.5_all.deb
+
+sudo apt install libqt5clucene5 libqt5designer5 libqt5help5 python3-psutil python3-pyqt5 python3-pyqt5.qtsvg python3-sip
+
+sudo dpkg -i resetter_3.0.0-stable_all.deb add-apt-key_1.0-0.5_all.deb
+
+resetter
+
+/*************VERIFICAR LA MEMORIA LIBRE************/
+free -h
+
+
+/*************SABER INFORMACION DEL PROCESADOR******************/
+cat /proc/cpuinfo

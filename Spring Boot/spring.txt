@@ -1,0 +1,52 @@
+#Servidores Web incrustados
+- Tomcat
+- Jetty
+- UnderTow
+
+######################INSTALACION##################################
+#Instalar version de java
+- https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+
+#Configurar variable de entorno en el path
+- C:\Program Files\Java\jdk-11.0.12\bin
+
+
+###############Instalación IntelliJ IDEA#########################
+ - https://www.jetbrains.com/idea/download
+
+
+#Inversion de control (IoC)
+- Principio que trnasfiere el control de los objetos de un programa a un contenedor o Framework
+
+#Patron de inyección de dependencias
+- Es el proceso con el que los objetos definen sus dependencias.
+
+################bean###########################
+Qué es un bean? Un bean básicamente son módulos desarrollados en Spring estos se encargan de brindarnos toda la lógica que necesitamos para nuestra aplicación. Ejemplo: Si necesitamos referenciar que nuestra clase es un modelo hacemos uso de el bean @entity . Esto nos permite usar propiedades creadas para este tipo de modulo que nos agilizan nuestro desarrollo. Al hacer inversión de control nosotros al llamar esos beans lo que hacemos es referenciar módulos funcionales creados por spring. Spring boot nos facilita el fácil instanciamiento de estos a nuestra aplicación, haciendo todo por nosotros
+
+
+###############Creación del proyecto###############
+Se realiza la creación del proyecto
+
+- https://start.spring.io/
+
+
+#####################CONFIGURAR PATH Y PUERTO#####################
+
+- Se debe agregar en la seccion de dependencias del pom.xml
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+- En la carpeta de resources/application.properties se agregan las configuraciones
+
+server.port=8081
+server.servlet.context-path=/app
+
+
+###############Libreria de LOGS###############
+- apache commons
+
+private Log LOGGER  = LogFactory.getLog(FundamentosApplication.class);

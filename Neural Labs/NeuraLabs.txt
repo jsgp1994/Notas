@@ -1,0 +1,7 @@
+
+Los archivos c2v son la huella del pc para solicitar una licencia serial
+Los archivos v2c son las licencias vitalicias de LPR
+
+
+//Enviar soportes Neural Labs
+https://neurallabs.zendesk.com/hc/es/signin
